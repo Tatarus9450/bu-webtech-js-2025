@@ -47,9 +47,80 @@
     </ul>
 
     </p>
+    <h3>Your solution for exercise</h3>  
+</body>
+<body>
+  <h2>Table of Name</h2>
 
-    <h2>Your solution for exercise</h2>
+  <td>
+    <input type="text" placeholder="Enter first name" id="txtFN" />
+  </td>
+  <td>
+    <input type="text" placeholder="Enter last name" id="txtLN" />
+  </td>
+  <td>
+    <input id="add" type="button" value="Add" onclick="add();" />
+  </td>
+  <td>
+    <input id="reset_input" type="button" value="Reset Input" onclick="reset_input();" />
+  </td>
+  <td>
+    <input id="reset_table" type="button" value="Reset Table" onclick="reset_table();" />
+  </td>
 
+  <table id="nameTable" border="1" cellspacing="0" cellpadding="6" style="margin-top:10px;">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    function add() {
+      const firstname = document.getElementById('txtFN').value.trim();
+      const lastname  = document.getElementById('txtLN').value.trim();
+
+      if (!firstname || !lastname) {
+        alert('กรุณากรอกชื่อและนามสกุลให้ครบถ้วน');
+        return;
+      }
+
+      const tbody = document.getElementById('tbody');
+      const tr = document.createElement('tr');
+
+      const tdFirst = document.createElement('td');
+      tdFirst.textContent = firstname;
+
+      const tdLast = document.createElement('td');
+      tdLast.textContent = lastname;
+
+      tr.appendChild(tdFirst);
+      tr.appendChild(tdLast);
+      tbody.appendChild(tr);
+
+      reset_input();
+      document.getElementById('txtFN').focus();
+    }
+    function reset_input() {
+      document.getElementById('txtFN').value = "";
+      document.getElementById('txtLN').value = "";
+    }
+    function reset_table() {
+      document.getElementById('tbody').innerHTML = "";
+      reset_input();
+      document.getElementById('txtFN').focus();
+    }
+
+    document.getElementById('txtFN').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') add();
+    });
+    document.getElementById('txtLN').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') add();
+    });
+  </script>
 </body>
 
 </html>
