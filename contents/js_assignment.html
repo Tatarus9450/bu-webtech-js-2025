@@ -40,13 +40,63 @@
         <li>Once checkbox mark as checked, the detail of to-do item will be strikethrough
         </li>
         <li>
-            'Clear all todos' button: to clear all todo items from list
+            'Clear all to do' button: to clear all todo items from list
         </li>
     </ul>
 
 
     <h3>Your solution for assignment</h3>
 
+
+  <title>Simple Todo</title>
+
+<body>
+  <div class="controls">
+    <input id="todo-input" type="text" placeholder="Enter new task" aria-label="New task" />
+    <button id="add-btn" type="button">Add</button>
+    <button id="clear-btn" type="button">Clear all to do</button>
+  </div>
+
+  <ul id="todo-list" aria-live="polite"></ul>
+
+  <script>
+    const $input = document.getElementById('todo-input');
+    const $addBtn = document.getElementById('add-btn');
+    const $clearBtn = document.getElementById('clear-btn');
+    const $list = document.getElementById('todo-list');
+
+    function addTodo(text) {
+      const value = (text ?? $input.value).trim();
+      if (!value) return;
+
+      const li = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.addEventListener('change', () => {
+        li.classList.toggle('completed', checkbox.checked);
+      });
+
+      const span = document.createElement('span');
+      span.textContent = value;
+
+      li.appendChild(checkbox);
+      li.appendChild(span);
+      $list.appendChild(li);
+
+      $input.value = '';
+      $input.focus();
+    }
+
+    $addBtn.addEventListener('click', () => addTodo());
+    $input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') addTodo();
+    });
+    $clearBtn.addEventListener('click', () => {
+      $list.innerHTML = '';
+      $input.focus();
+    });
+  </script>
 </body>
 
 </html>
